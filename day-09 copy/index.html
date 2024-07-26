@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 10</title>
+</head>
+
+<body style="margin-bottom: 500px;">
+    <!-- task 01 -->
+    <button id="task01">Change para</button>
+    <p class="task01-para">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis veritatis a nisi.</p>
+
+    <!-- task 02 -->
+    <img class="task02-img" src="./images/cat-02.jpg" alt="" width="200">
+
+    <!-- task 03 -->
+    <h1 class="mouseover">Change My background color</h1>
+
+    <!-- task 05 and 06 -->
+    <input id="keyboardEvents" type="text" />
+    <p class="log"></p>
+
+    <!-- task 07 -->
+    <form action="">
+        <input class="task07" type="text" placeholder="Enter your name">
+        <button id="task07btn" type="submit">Submit</button>
+        <br><br>
+    </form>
+
+    <!-- task 08 -->
+    <select id="carSelector">
+        <option selected disabled>Select your car</option>
+        <option value="cultus">Cultus</option>
+        <option value="mehran">Mehran</option>
+        <option value="swift">Swift</option>
+    </select>
+    <p class="selection-para">Your selected option is: <span class="selection-span"></span></p>
+
+    <!-- task 09 -->
+    <ul class="event-delegation">
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact us</li>
+        <li>Services</li>
+        <li>Course</li>
+    </ul>
+
+    <!-- task 10 -->
+    <div class="buttons">
+        <button>Button 01</button>
+        <button>Button 02</button>
+        <button>Button 03</button>
+        <button>Button 04</button>
+        <button>Button 05</button>
+    </div>
+    <br>
+    <button id="add-button">Create new button</button>
+
+
+    <script>
+        // task 01
+        document.querySelector('#task01').addEventListener('click', () => {
+            document.querySelector('.task01-para').innerText = 'My content has changed';
+        })
+
+        // task 02
+        const catImage = document.querySelector('.task02-img');
+        catImage.addEventListener('dblclick', () => {
+            if (catImage.style.opacity !== '0.1') {
+                catImage.style.opacity = '0.1';
+                return;
+            }
+            catImage.style.opacity = '1';
+        })
+
+        // task 03
+        const h1 = document.querySelector('.mouseover');
+        h1.addEventListener('mouseover', () => {
+            h1.style.backgroundColor = 'lightblue';
+        })
+
+        // task 04
+        h1.addEventListener('mouseout', () => {
+            h1.style.backgroundColor = '';
+        })
+
+        // task 05
+        document.querySelector('#keyboardEvents')
+            .addEventListener('keydown', (e) => {
+                console.log(e.key);
+            })
+
+        // task 06
+        const inputKeyUp = document.querySelector('#keyboardEvents');
+        const paraLog = document.querySelector('.log');
+        inputKeyUp.addEventListener('keyup', (e) => {
+            paraLog.innerText = inputKeyUp.value;
+        })
+
+        // task 07
+        const input = document.querySelector('.task07');
+        document.querySelector('form')
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+                console.log(input.value);
+                input.value = ''
+            });
+
+        // task 08
+        const carSelector = document.querySelector("#carSelector");
+        let selectedValue = carSelector.options[carSelector.selectedIndex].value;
+        let selectionSpanText = document.querySelector('.selection-span');
+        selectionSpanText.innerText = selectedValue;
+
+        if (selectedValue === 'Select your car') {
+            selectionSpanText.innerText = '';
+        }
+
+        carSelector.addEventListener('change', (e) => {
+            selectionSpanText.innerText = e.target.value;
+        });
+
+        // task 09
+        const ul = document.querySelector('.event-delegation');
+        ul.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI') {
+                console.log(e.target.textContent)
+            }
+        })
+        const li = document.createElement('li');
+        li.textContent = 'New item';
+        ul.appendChild(li)
+
+        // task 10
+        const buttons = document.querySelector('.buttons');
+        buttons.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON')
+                console.log(e.target.textContent)
+        })
+        let btnCount = 5;
+        
+        document.querySelector('#add-button')
+            .addEventListener('click', () => {
+                btnCount++;
+                const button = document.createElement('button');
+                button.textContent = btnCount < 10 ? `Button 0${btnCount}` : `Button ${btnCount}`;
+                button.style.marginRight = '5px'
+                buttons.appendChild(button);
+            })
+
+
+
+    </script>
+</body>
+
+</html>
